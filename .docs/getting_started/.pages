@@ -1,0 +1,5 @@
+nav:
+  - About Project: 'about.md'
+  - Setup Project: 'setup.md'
+  - Configuration: 'configuration.md'
+  - Commands: 'commands.md'

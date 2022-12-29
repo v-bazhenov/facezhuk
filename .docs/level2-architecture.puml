@@ -1,0 +1,30 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4.puml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+
+title Facezhuk
+
+System_Boundary(la, "Facezhuk"){
+    Container(api, "Rest API", "FastAPI", "Provides API for client application")
+    Container(celery, "Celery", "Celery", "Asynchrounous task manager")
+    ContainerDb(postgres, "PostgreSQL", "PostgreSQL", "Main Relational Database")
+    ContainerDb(mongo, "MongoDB", "MongoDB", "NoSQL Database")
+    ContainerDb(redis, "Redis", "Redis", Throttling rates manager)
+}
+
+
+Container(fe, "FE client")
+Container_Ext(EmailProvider, "Email Provider")
+Rel(fe, api, "Make API calls", "https, json")
+Rel(fe, api, "Get data", "websockets")
+Rel(celery, mongo, "DB Integration for messages")
+Rel(api, celery, "Send Tasks")
+Rel(api, redis, "Rate Limiter")
+Rel(api, postgres, "Read/Write Data")
+Rel(api, mongo, "Read/Write Messages")
+Rel(celery, postgres, "DB Integration for messages")
+Rel(api, EmailProvider, "Sending emails")
+
+@enduml

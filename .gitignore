@@ -1,0 +1,12 @@
+venv/
+*.pyc
+.coverage
+.pytest_cache
+tests/.pytest_cache
+.env
+_data-dev
+.DS_Store
+
+*-data*
+**/.idea/
+**/.vscode/

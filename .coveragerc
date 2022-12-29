@@ -1,0 +1,11 @@
+[run]
+omit =
+    venv/*
+    tests/*
+    database/*
+    auth/social/*
+    notification/manager.py
+    common/rate_limiter.py
+    main.py
+    auth/exceptions.py
+    auth/service.py

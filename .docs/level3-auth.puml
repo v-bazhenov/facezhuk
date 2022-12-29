@@ -1,0 +1,33 @@
+@startuml authentication_components
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+
+!include DEVICONS/django.puml
+
+title "Authentication Components"
+
+Container(api, "API", "FastAPI", "The API to be used by the client")
+
+Boundary(auth, "Authentication"){
+    Component(sign_up, "Sign Up Component", "FastAPI", "Register new users in the system")
+    Component(restore_password, "Restore Password", "FastAPI", "Restore password to user's account")
+
+    Boundary(sign_in, "Two-Factor Sign In"){
+        Component(email_pass_component, "Email Sign In Component", "FastAPI", "Sign in with email / password pair")
+        Component(otp_component, "OTP Sign In Component", "FastAPI", "Sign in with OTP code from Authenticator app")
+
+        Rel_R(email_pass_component, otp_component, "")
+    }
+}
+
+Component(send_email, "Send Email Component", "FastAPI Mail: background_task", "Send emails to users")
+
+Rel_D(api, auth, "API calls to")
+Rel(sign_up, send_email, "Send 'Activation' Email")
+Rel(restore_password, send_email, "Send email with instructions")
+
+@enduml

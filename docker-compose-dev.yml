@@ -1,0 +1,28 @@
+version: '3'
+services:
+  cache:
+    image: "redis:6.2-alpine"
+    command: --port 6379
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./_data-dev/redis-data:/data"
+  database:
+    image: "postgres:13.3-alpine"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=facezhuk
+      - POSTGRES_USER=facezhuk
+      - POSTGRES_DB=facezhuk
+    volumes:
+      - ./_data-dev/postgres-data:/var/lib/postgresql/data
+  mongodb:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=facezhuk
+      - MONGO_INITDB_ROOT_PASSWORD=facezhuk
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./_data-dev/mongodb_data:/data/db

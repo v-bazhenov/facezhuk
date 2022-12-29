@@ -1,0 +1,47 @@
+@startuml sign_in_objects
+
+title "2FA Sign In Objects"
+
+top to bottom direction
+
+package auth {
+    package models {
+        class User {
+            +id
+            +username
+            +first_name
+            +last_name
+            +phone
+            +email
+            +registered_at
+            +password
+            +otp_secret
+            +is_active
+            +friends
+        }
+    }
+    package service {
+        class AuthService{
+            Service that validates the User using
+            the provided OTP code
+            ..
+            +email_field: EmailStr
+            +password_field: str
+            +one_time_pass: str
+        }
+
+    }
+    package api {
+        class login{
+            Get JWT tokens for User with OTP code.
+            ..
+            +email_field: EmailStr
+            +password_field: str
+            +one_time_pass: str
+        }
+
+        login --|> AuthService
+    }
+}
+
+@enduml

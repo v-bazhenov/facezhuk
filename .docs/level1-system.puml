@@ -1,0 +1,19 @@
+@startuml system
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+
+!include FONTAWESOME/cc_stripe.puml
+!include MATERIAL/email.puml
+
+title "Facezhuk System"
+
+Person(user, "User", "The user of Facezhuk")
+System(smart_code, "Facezhuk", "The system of Facezhuk")
+
+Rel_D(user, smart_code, "Uses the system")
+
+@enduml
