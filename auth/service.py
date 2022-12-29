@@ -89,10 +89,11 @@ class AuthService:
                 raise HTTPException(detail='Wrong social provider', status_code=status.HTTP_400_BAD_REQUEST)
 
         email = profile_info.get('email')
+        username = email.split('@')[0]
         profile = await self.find_profile_by_email(email=email)
         if not profile:
             profile = Profile(
-                username=email, email=email, password=await self.create_temp_password(email), is_active=True
+                username=username, email=email, password=await self.create_temp_password(email), is_active=True
             )
             await db.fetch_one(insert(user).values(
                 profile.dict(exclude_none=True)).returning(user))
