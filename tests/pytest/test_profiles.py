@@ -115,6 +115,7 @@ async def test_accept_friendship_request_already_friends():
 async def test_get_friends():
     async with AsyncClient(app=app, base_url=app_base_url) as conn, LifespanManager(app):
         res = await conn.get("/profiles/friends/", headers=get_headers)
+        print(res.json())
         assert res.status_code == 200
         assert res.json()['total'] == 1
 

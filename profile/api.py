@@ -10,7 +10,7 @@ from common.rate_limiter import RateLimitTo
 from notification.manager import notifier
 from notification.models import NotificationData, Notification
 from notification.service import NotificationService
-from profile.schemas import FullProfile, IncomingFriendRequest, OutgoingFriendRequest, BaseProfile
+from profile.schemas import FullProfile, IncomingFriendRequest, OutgoingFriendRequest, BaseProfile, FullProfileOut
 from profile.service import ProfilesService
 
 profiles_router = InferringRouter()
@@ -133,7 +133,7 @@ class ProfilesApi:
 
     @profiles_router.get(
         "/profiles/friends/",
-        response_model=LimitOffsetPage[FullProfile],
+        response_model=LimitOffsetPage[FullProfileOut],
         dependencies=[Depends(RateLimitTo(times=10, seconds=1))])
     async def get_friends(self, user: User = Depends(get_user)):
         """Get specified profile's friends."""

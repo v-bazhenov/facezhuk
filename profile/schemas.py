@@ -16,6 +16,14 @@ class FullProfile(BaseProfile):
     phone: Optional[str]
 
 
+class FullProfileOut(BaseProfile):
+    email: EmailStr
+    phone: Optional[str]
+
+    class Config:
+        orm_mode = True
+
+
 class IncomingFriendRequest(BaseSchema):
     from_user: str
 
